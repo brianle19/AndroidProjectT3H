@@ -8,10 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.thaile.btvnlab13_appdoctruyen.Activity.DBManager;
-import com.thaile.btvnlab13_appdoctruyen.Item.ItemData;
 import com.thaile.btvnlab13_appdoctruyen.R;
-
-import java.util.ArrayList;
 
 /**
  * Created by Le on 7/23/2016.
@@ -20,22 +17,21 @@ public class StoryMenuBarAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
     private DBManager dbManager;
-    private ArrayList<ItemData> mDataArrayList;
+
     public StoryMenuBarAdapter(Context context){
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         dbManager = new DBManager(context);
-        mDataArrayList=dbManager.getStory();
     }
 
     @Override
     public int getCount() {
-        return mDataArrayList.size();
+        return dbManager.getStoryVietTopic().size();
     }
 
     @Override
     public String getItem(int position) {
-        return mDataArrayList.get(position).getNameData();
+        return dbManager.getStoryVietTopic().get(position).toString();
     }
 
     @Override
@@ -52,10 +48,9 @@ public class StoryMenuBarAdapter extends BaseAdapter {
             viewHolder.txt = (TextView) convertView.findViewById(R.id.text_bar);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder)convertView.getTag();
         }
-
-        viewHolder.txt.setText(mDataArrayList.get(position).getNameData());
+        viewHolder.txt.setText(dbManager.getStoryVietTopic().get(position));
         return convertView;
     }
 

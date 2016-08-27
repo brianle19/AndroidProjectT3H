@@ -1,7 +1,6 @@
 package com.thaile.btvnlab13_appdoctruyen.Adapter;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -11,11 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.thaile.btvnlab13_appdoctruyen.Activity.DBManager;
 import com.thaile.btvnlab13_appdoctruyen.Item.ItemStory;
 import com.thaile.btvnlab13_appdoctruyen.R;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -25,11 +23,13 @@ public class StoryAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
     private Context context;
+    private DBManager dbManager;
     private ArrayList<ItemStory> storyData = new ArrayList<>();
 
-    public StoryAdapter (ArrayList<ItemStory> storyData, Context context){
+    public StoryAdapter (ArrayList<ItemStory> storyData,Context context){
         this.context = context;
         this.storyData = storyData;
+        dbManager = new DBManager(context);
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -63,9 +63,9 @@ public class StoryAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        ItemStory itemStory = (ItemStory)storyData.get(position);
+        ItemStory itemStory =  (ItemStory)storyData.get(position);
         viewHolder.tvTitle.setText(itemStory.getTitleName());
-        showImage(viewHolder.img);
+        showImage(viewHolder.img, itemStory.getImgStory());
         return convertView;
     }
 
@@ -74,16 +74,8 @@ public class StoryAdapter extends BaseAdapter {
         ImageView img;
     }
 
-    private void showImage(ImageView img) {
-        AssetManager assetManager = context.getAssets();
-        try {
-            InputStream input = assetManager.open("img/bovaruou.jpg");
-            BitmapFactory.decodeStream(input);
-            Bitmap src = BitmapFactory.decodeStream(input);
+    private void showImage(ImageView img, byte[] b) {
+            Bitmap src = BitmapFactory.decodeByteArray(b, 0, b.length);
             img.setImageBitmap(src);
-            input.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

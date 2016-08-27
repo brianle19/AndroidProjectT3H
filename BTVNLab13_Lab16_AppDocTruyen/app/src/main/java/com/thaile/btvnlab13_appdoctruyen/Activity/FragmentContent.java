@@ -44,11 +44,10 @@ public class FragmentContent extends Fragment {
         int posArray = FragmentHome.pos;
         dbManager = new DBManager(context);
 
+
         title = (TextView) rootView.findViewById(R.id.tv_name);
         content = (TextView) rootView.findViewById(R.id.tv_content);
 
-        title.setText(dbManager.getStory().get(posArray).getData().get(posItem).getTitleName());
-        content.setText(dbManager.getStory().get(posArray).getData().get(posItem).getContent());
 
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(), "fonts/sty.ttf");
         title.setTypeface(face);

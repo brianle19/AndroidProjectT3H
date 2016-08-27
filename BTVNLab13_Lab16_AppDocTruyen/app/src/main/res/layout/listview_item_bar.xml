@@ -4,17 +4,9 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
-    <ImageView
-        android:background="@drawable/image_custom"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/dangian"
-        android:id="@+id/img_bar"
-        />
 
     <TextView
         android:textColor="#696969"
-        android:layout_toRightOf="@+id/img_bar"
         android:layout_marginLeft="20dp"
         android:textSize="20dp"
         android:gravity="center"

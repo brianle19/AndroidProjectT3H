@@ -20,6 +20,9 @@ import com.thaile.btvnlab13_appdoctruyen.Adapter.ViewPagerAdapter;
 import com.thaile.btvnlab13_appdoctruyen.Adapter.ZoomOutPageTransformer;
 import com.thaile.btvnlab13_appdoctruyen.R;
 
+/**
+ * Created by Le on 7/28/2016.
+ */
 public class FragmentHome extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener, DrawerLayout.DrawerListener, AdapterView.OnItemClickListener, ViewPagerAdapter.CallFragmentContent {
     private View rootView;
     private TabLayout tabs;

@@ -9,12 +9,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.thaile.btvnlab13_appdoctruyen.Activity.DBManager;
-import com.thaile.btvnlab13_appdoctruyen.Item.ItemData;
-import com.thaile.btvnlab13_appdoctruyen.Item.ItemStory;
 import com.thaile.btvnlab13_appdoctruyen.R;
-
-import java.util.ArrayList;
-
+/**
+ * Created by Le on 7/20/2016.
+ */
 public class ViewPagerAdapter extends PagerAdapter implements AdapterView.OnItemClickListener {
     private View view;
     public  GridView gridView;
@@ -23,26 +21,23 @@ public class ViewPagerAdapter extends PagerAdapter implements AdapterView.OnItem
     private StoryAdapter storyAdapter;
     public static int posItem;
     private DBManager dbManager;
-    private ArrayList<ItemStory> itemStories;
-    private ArrayList<ItemData> mDataArrayList;
     private CallFragmentContent callFragmentContent;
 
     public ViewPagerAdapter(Context context){
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         dbManager = new DBManager(context);
-        mDataArrayList=dbManager.getStory();
     }
 
     @Override
     public int getCount() {
-        return mDataArrayList.size();
+        return dbManager.getStoryVietTopic().size();
     }
 
     //hien title cua story
     @Override
     public CharSequence getPageTitle(int position) {
-        return  mDataArrayList.get(position).getNameData();
+        return  dbManager.getStoryVietTopic().get(position).toString();
     }
 
     @Override
@@ -54,9 +49,7 @@ public class ViewPagerAdapter extends PagerAdapter implements AdapterView.OnItem
     public Object instantiateItem(ViewGroup viewPager, int position) {
         view = layoutInflater.inflate(R.layout.activity_gridview_item, viewPager, false);
         gridView = (GridView) view.findViewById(R.id.gridView);
-//        itemStories = new ArrayList<>();
-        ItemData itemData = getItem(position);
-        storyAdapter = new StoryAdapter(itemData.getData(), context);
+        storyAdapter = new StoryAdapter(dbManager.getStory().get(dbManager.getStoryVietTopic().get(position)),context);
         gridView.setAdapter(storyAdapter);
         gridView.setOnItemClickListener(this);
         viewPager.addView(view);
@@ -75,9 +68,7 @@ public class ViewPagerAdapter extends PagerAdapter implements AdapterView.OnItem
             callFragmentContent.showContent();
         }
     }
-    private ItemData getItem(int position){
-        return mDataArrayList.get(position);
-    }
+
     public void setShowContent(CallFragmentContent callFragmentContent){
 
         this.callFragmentContent = callFragmentContent;
